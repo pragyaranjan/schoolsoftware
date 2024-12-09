@@ -1,0 +1,19 @@
+<web-app>
+    <servlet>
+        <servlet-name>AssignGradesServlet</servlet-name>
+        <servlet-class>AssignGradesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AssignGradesServlet</servlet-name>
+        <url-pattern>/assignGradesServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>StudentDashboardServlet</servlet-name>
+        <servlet-class>StudentDashboardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StudentDashboardServlet</servlet-name>
+        <url-pattern>/studentDashboardServlet</url-pattern>
+    </servlet-mapping>
+</web-app>

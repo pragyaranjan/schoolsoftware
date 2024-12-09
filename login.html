@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School App - Admin Portal</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+            text-align: left;
+            font-size: 14px;
+            color: #555;
+        }
+
+        input, select {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+        }
+
+        .success-message {
+            color: green;
+            font-size: 14px;
+        }
+
+        .toggle-link {
+            margin-top: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            color: #007bff;
+        }
+
+        .toggle-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Form -->
+        <div id="loginForm">
+            <h1>Login</h1>
+            <form>
+                <label for="loginUsername">Username</label>
+                <input type="text" id="loginUsername" placeholder="Enter your username" required>
+                
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                
+                <select id="loginRole" required>
+                    <option value="">Select Role</option>
+                    <option value="developerAdmin">Developer Admin</option>
+                    <option value="schoolAdmin">School Admin</option>
+                </select>
+                
+                <button type="button" onclick="handleLogin()">Login</button>
+            </form>
+            <p id="loginError" class="error-message"></p>
+            <p class="toggle-link" onclick="toggleForms('register')">Don't have an account? Register</p>
+        </div>
+
+        <!-- Registration Form -->
+        <div id="registerForm" style="display: none;">
+            <h1>Register</h1>
+            <form>
+                <label for="registerUsername">Username</label>
+                <input type="text" id="registerUsername" placeholder="Enter a username" required>
+                
+                <label for="registerEmail">Email</label>
+                <input type="email" id="registerEmail" placeholder="Enter an email" required>
+                
+                <label for="registerPassword">Password</label>
+                <input type="password" id="registerPassword" placeholder="Enter a password" required>
+                
+                <select id="registerRole" required>
+                    <option value="">Select Role</option>
+                    <option value="developerAdmin">Developer Admin</option>
+                    <option value="schoolAdmin">School Admin</option>
+                </select>
+                
+                <button type="button" onclick="handleRegister()">Register</button>
+            </form>
+            <p id="registerError" class="error-message"></p>
+            <p id="registerSuccess" class="success-message"></p>
+            <p class="toggle-link" onclick="toggleForms('login')">Already have an account? Login</p>
+        </div>
+    </div>
+
+    <script>
+        // Mock database
+        const users = [];
+
+        // Toggle between login and register forms
+        function toggleForms(form) {
+            document.getElementById("loginForm").style.display = form === "login" ? "block" : "none";
+            document.getElementById("registerForm").style.display = form === "register" ? "block" : "none";
+        }
+
+        // Handle registration
+        function handleRegister() {
+            const username = document.getElementById("registerUsername").value;
+            const email = document.getElementById("registerEmail").value;
+            const password = document.getElementById("registerPassword").value;
+            const role = document.getElementById("registerRole").value;
+            const registerError = document.getElementById("registerError");
+            const registerSuccess = document.getElementById("registerSuccess");
+
+            // Reset messages
+            registerError.textContent = "";
+            registerSuccess.textContent = "";
+
+            // Validate inputs
+            if (!username || !email || !password || !role) {
+                registerError.textContent = "All fields are required!";
+                return;
+            }
+
+            // Check if user already exists
+            if (users.find(user => user.email === email)) {
+                registerError.textContent = "Email already exists!";
+                return;
+            }
+
+            // Register user
+            users.push({ username, email, password, role });
+            registerSuccess.textContent = "Registration successful!";
+        }
+
+        // Handle login
+        function handleLogin() {
+            const username = document.getElementById("loginUsername").value;
+            const password = document.getElementById("loginPassword").value;
+            const role = document.getElementById("loginRole").value;
+            const loginError = document.getElementById("loginError");
+
+            // Reset error message
+            loginError.textContent = "";
+
+            // Validate inputs
+            if (!username || !password || !role) {
+                loginError.textContent = "All fields are required!";
+                return;
+            }
+
+            // Authenticate user
+            const user = users.find(user => user.username === username && user.password === password && user.role === role);
+            if (user) {
+                alert(`Welcome, ${user.username}! Role: ${user.role}`);
+            } else {
+                loginError.textContent = "Invalid credentials!";
+            }
+        }
+    </script>
+</body>
+</html>

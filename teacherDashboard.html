@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Teacher Dashboard</h1>
+        <div class="section">
+            <h2>Assign Grades</h2>
+            <form action="assignGradesServlet" method="POST">
+                <label for="studentName">Student Name:</label>
+                <input type="text" id="studentName" name="studentName" required>
+                
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="subject" required>
+
+                <label for="grade">Grade:</label>
+                <input type="text" id="grade" name="grade" required>
+
+                <button type="submit">Assign Grade</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
